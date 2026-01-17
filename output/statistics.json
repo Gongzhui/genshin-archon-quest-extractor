@@ -1,0 +1,404 @@
+{
+  "summary": {
+    "total_chapters": 46,
+    "total_dialogues": 51195,
+    "total_characters": 1421499
+  },
+  "chapters": [
+    {
+      "id": "1001",
+      "title": "序章 第一幕 捕风的异乡人",
+      "dialogues": 322,
+      "chars": 8107
+    },
+    {
+      "id": "1002",
+      "title": "序章 第二幕 为了没有眼泪的明天",
+      "dialogues": 610,
+      "chars": 13908
+    },
+    {
+      "id": "1003",
+      "title": "序章 第三幕 巨龙与自由之歌",
+      "dialogues": 432,
+      "chars": 12429
+    },
+    {
+      "id": "1004",
+      "title": "间章 第四幕 悖理",
+      "dialogues": 1113,
+      "chars": 31731
+    },
+    {
+      "id": "1101",
+      "title": "第一章 第一幕 浮世浮生千岩间",
+      "dialogues": 2129,
+      "chars": 58773
+    },
+    {
+      "id": "1102",
+      "title": "第一章 第二幕 辞行久远之躯",
+      "dialogues": 803,
+      "chars": 22184
+    },
+    {
+      "id": "1103",
+      "title": "第一章 第三幕 迫近的客星",
+      "dialogues": 874,
+      "chars": 24510
+    },
+    {
+      "id": "1104",
+      "title": "第一章 第四幕 我们终将重逢",
+      "dialogues": 583,
+      "chars": 17645
+    },
+    {
+      "id": "1201",
+      "title": "第二章 序幕 振袖秋风问红叶",
+      "dialogues": 2342,
+      "chars": 66519
+    },
+    {
+      "id": "1202",
+      "title": "第二章 第一幕 不动鸣神，恒常乐土",
+      "dialogues": 1326,
+      "chars": 34277
+    },
+    {
+      "id": "1203",
+      "title": "第二章 第二幕 无念无想，泡影断灭",
+      "dialogues": 275,
+      "chars": 8877
+    },
+    {
+      "id": "1204",
+      "title": "第二章 第三幕 千手百眼，天下人间",
+      "dialogues": 1014,
+      "chars": 28932
+    },
+    {
+      "id": "1205",
+      "title": "间章 第一幕 风起鹤归",
+      "dialogues": 643,
+      "chars": 17664
+    },
+    {
+      "id": "1206",
+      "title": "第二章 第四幕 回响渊底的安魂曲",
+      "dialogues": 405,
+      "chars": 11380
+    },
+    {
+      "id": "1207",
+      "title": "间章 第二幕 危途疑踪",
+      "dialogues": 1393,
+      "chars": 33125
+    },
+    {
+      "id": "1301",
+      "title": "第三章 第一幕 穿越烟帷与暗林",
+      "dialogues": 1542,
+      "chars": 48675
+    },
+    {
+      "id": "1302",
+      "title": "第三章 第二幕 千朵玫瑰带来的黎明",
+      "dialogues": 1407,
+      "chars": 39987
+    },
+    {
+      "id": "1303",
+      "title": "第三章 第三幕 迷梦与空幻与欺骗",
+      "dialogues": 887,
+      "chars": 25680
+    },
+    {
+      "id": "1304",
+      "title": "第三章 第四幕 赤土之王与三朝圣者",
+      "dialogues": 1096,
+      "chars": 27016
+    },
+    {
+      "id": "1305",
+      "title": "第三章 第五幕 虚空鼓动，劫火高扬",
+      "dialogues": 2242,
+      "chars": 59359
+    },
+    {
+      "id": "1306",
+      "title": "第三章 第二幕 千朵玫瑰带来的黎明·尾声",
+      "dialogues": 83,
+      "chars": 3212
+    },
+    {
+      "id": "1307",
+      "title": "间章 第三幕 倾落伽蓝",
+      "dialogues": 1203,
+      "chars": 34379
+    },
+    {
+      "id": "1308",
+      "title": "第三章 第六幕 卡利贝尔",
+      "dialogues": 744,
+      "chars": 17767
+    },
+    {
+      "id": "1401",
+      "title": "第四章 第一幕 白露与黑潮的序诗",
+      "dialogues": 1697,
+      "chars": 48808
+    },
+    {
+      "id": "1402",
+      "title": "第四章 第二幕 仿若无因飘落的轻雨",
+      "dialogues": 1325,
+      "chars": 38121
+    },
+    {
+      "id": "1403",
+      "title": "第四章 第三幕 向深水中的晨星",
+      "dialogues": 1069,
+      "chars": 30892
+    },
+    {
+      "id": "1404",
+      "title": "第四章 第四幕 谕示胎动的终焉之刻",
+      "dialogues": 1268,
+      "chars": 34448
+    },
+    {
+      "id": "1405",
+      "title": "第四章 第五幕 罪人舞步旋",
+      "dialogues": 2070,
+      "chars": 59986
+    },
+    {
+      "id": "1406",
+      "title": "第四章 第六幕 睡前故事",
+      "dialogues": 605,
+      "chars": 16948
+    },
+    {
+      "id": "1500",
+      "title": "第五章 第一幕 荣花与炎日之途",
+      "dialogues": 1117,
+      "chars": 31307
+    },
+    {
+      "id": "1501",
+      "title": "第五章 第二幕 黑石湮落白石下",
+      "dialogues": 1218,
+      "chars": 34918
+    },
+    {
+      "id": "1502",
+      "title": "第五章 第三幕 镜与谜烟的彼方",
+      "dialogues": 1256,
+      "chars": 36023
+    },
+    {
+      "id": "1503",
+      "title": "第五章 第四幕 命定将焚的虹光",
+      "dialogues": 1230,
+      "chars": 34468
+    },
+    {
+      "id": "1504",
+      "title": "第五章 第五幕 炽烈的还魂诗",
+      "dialogues": 1696,
+      "chars": 47587
+    },
+    {
+      "id": "1505",
+      "title": "第五章 幕间 万火归一",
+      "dialogues": 457,
+      "chars": 13181
+    },
+    {
+      "id": "1506",
+      "title": "第五章 第六幕 你存在的时空",
+      "dialogues": 912,
+      "chars": 26090
+    },
+    {
+      "id": "1600",
+      "title": "空月之歌 第一幕 雪浪与苍林之舞",
+      "dialogues": 2101,
+      "chars": 52310
+    },
+    {
+      "id": "1601",
+      "title": "空月之歌 第二幕 尘与灯的挽歌",
+      "dialogues": 1539,
+      "chars": 42299
+    },
+    {
+      "id": "1602",
+      "title": "空月之歌 序奏 归途",
+      "dialogues": 1095,
+      "chars": 29645
+    },
+    {
+      "id": "1603",
+      "title": "空月之歌 第三幕 不存在的国土",
+      "dialogues": 870,
+      "chars": 26676
+    },
+    {
+      "id": "1604",
+      "title": "空月之歌 第四幕 回望湮灭的月光",
+      "dialogues": 1609,
+      "chars": 47210
+    },
+    {
+      "id": "1605",
+      "title": "空月之歌 第五幕 终北的夜行诗",
+      "dialogues": 1377,
+      "chars": 39285
+    },
+    {
+      "id": "1606",
+      "title": "空月之歌 第六幕 散于晨雾的月芒",
+      "dialogues": 1171,
+      "chars": 28186
+    },
+    {
+      "id": "1607",
+      "title": "空月之歌 第七幕 如果在冬夜，一个旅人",
+      "dialogues": 139,
+      "chars": 4160
+    },
+    {
+      "id": "1608",
+      "title": "空月之歌 第八幕 真实之月",
+      "dialogues": 1429,
+      "chars": 41374
+    },
+    {
+      "id": "2015",
+      "title": "[Missing:2596271714] [Missing:2545561921]",
+      "dialogues": 477,
+      "chars": 11441
+    }
+  ],
+  "top_speakers": [
+    {
+      "name": "派蒙",
+      "count": 9607
+    },
+    {
+      "name": "旅行者",
+      "count": 7244
+    },
+    {
+      "name": "纳西妲",
+      "count": 882
+    },
+    {
+      "name": "玛薇卡",
+      "count": 819
+    },
+    {
+      "name": "菈乌玛",
+      "count": 795
+    },
+    {
+      "name": "奈芙尔",
+      "count": 741
+    },
+    {
+      "name": "娜维娅",
+      "count": 694
+    },
+    {
+      "name": "钟离",
+      "count": 604
+    },
+    {
+      "name": "艾尔海森",
+      "count": 601
+    },
+    {
+      "name": "戴因斯雷布",
+      "count": 598
+    },
+    {
+      "name": "茜特菈莉",
+      "count": 586
+    },
+    {
+      "name": "那维莱特",
+      "count": 577
+    },
+    {
+      "name": "哥伦比娅",
+      "count": 558
+    },
+    {
+      "name": "未知",
+      "count": 540
+    },
+    {
+      "name": "迪希雅",
+      "count": 539
+    },
+    {
+      "name": "林尼",
+      "count": 515
+    },
+    {
+      "name": "玛拉妮",
+      "count": 499
+    },
+    {
+      "name": "卡齐娜",
+      "count": 464
+    },
+    {
+      "name": "芙宁娜",
+      "count": 437
+    },
+    {
+      "name": "「少女」",
+      "count": 437
+    }
+  ],
+  "regions": {
+    "序章（蒙德）": {
+      "chapters": 3,
+      "dialogues": 1364,
+      "characters": 34444
+    },
+    "第一章（璃月）": {
+      "chapters": 4,
+      "dialogues": 4389,
+      "characters": 123112
+    },
+    "第二章（稻妻）": {
+      "chapters": 7,
+      "dialogues": 7398,
+      "characters": 200774
+    },
+    "第三章（须弥）": {
+      "chapters": 8,
+      "dialogues": 9204,
+      "characters": 256075
+    },
+    "第四章（枫丹）": {
+      "chapters": 6,
+      "dialogues": 8034,
+      "characters": 229203
+    },
+    "第五章（纳塔）": {
+      "chapters": 7,
+      "dialogues": 7886,
+      "characters": 223574
+    },
+    "空月之歌（坎瑞亚）": {
+      "chapters": 9,
+      "dialogues": 11330,
+      "characters": 311145
+    }
+  }
+}

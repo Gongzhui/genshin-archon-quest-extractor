@@ -1,0 +1,32 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+*.egg-info/
+dist/
+build/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Project specific - Data sources (too large for git)
+AnimeGameData/
+GenshinScripts/
+GenshinDialog/
+
+# Archive
+archive/
+
+# Keep output but ignore temp files
+output/*.tmp
+*.log
