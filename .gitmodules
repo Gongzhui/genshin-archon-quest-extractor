@@ -1,0 +1,3 @@
+[submodule "AnimeGameData"]
+	path = AnimeGameData
+	url = https://github.com/DimbreathBot/AnimeGameData.git

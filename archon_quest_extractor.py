@@ -6,19 +6,22 @@ Combines two extraction methods:
 2. CodexQuest files (new chapters: Fontaine and beyond)
 """
 
+import argparse
 import json
 import os
+import random
+from datetime import datetime
 from pathlib import Path
 from collections import defaultdict
 
 class ArchonQuestExtractorV2:
-    def __init__(self, data_dir='GenshinScripts/data', repo_dir='AnimeGameData'):
+    def __init__(self, data_dir='GenshinScripts/data', repo_dir='AnimeGameData', textmap_lang='CHS'):
         self.data_dir = Path(data_dir)
         self.repo_dir = Path(repo_dir)
         self.excel_dir = self.data_dir / 'Excel'
-        self.textmap_path = self.data_dir / 'TextMap' / 'TextMapCHS.json'
+        self.textmap_path = self.data_dir / 'TextMap' / f'TextMap{textmap_lang}.json'
         self.codex_dir = self.repo_dir / 'BinOutput' / 'CodexQuest'
-        
+
         print("Loading data files...")
         self.textmap = self.load_json(self.textmap_path)
         self.chapters = self.load_json(self.excel_dir / 'ChapterExcelConfigData.json')
@@ -27,19 +30,21 @@ class ArchonQuestExtractorV2:
         self.talks = self.load_json(self.excel_dir / 'TalkExcelConfigData.json')
         self.dialogs = self.load_json(self.excel_dir / 'DialogExcelConfigData.json')
         self.npcs = self.load_json(self.excel_dir / 'NpcExcelConfigData.json')
-        
+
         # Build lookup dicts
-        self.talk_dict = {t['id']: t for t in self.talks if 'id' in t}
+        self.talk_dict = {t['id']: t for t in self.talks if isinstance(t, dict) and 'id' in t}
         self.dialog_dict = {}
         for d in self.dialogs:
+            if not isinstance(d, dict):
+                continue
             dialog_id = d.get('GFLDJMJKIKE') or d.get('id')
             if dialog_id:
                 self.dialog_dict[dialog_id] = d
-        self.npc_dict = {n['id']: n for n in self.npcs if 'id' in n}
-        
+        self.npc_dict = {n['id']: n for n in self.npcs if isinstance(n, dict) and 'id' in n}
+
         # Build main quest lookup
-        self.main_quest_dict = {mq['id']: mq for mq in self.main_quests if 'id' in mq}
-        
+        self.main_quest_dict = {mq['id']: mq for mq in self.main_quests if isinstance(mq, dict) and 'id' in mq}
+
         print(f"Loaded: {len(self.chapters)} chapters, {len(self.main_quests)} main quests, {len(self.dialogs)} dialogs")
         print(f"CodexQuest dir: {self.codex_dir}")
     
@@ -55,12 +60,14 @@ class ArchonQuestExtractorV2:
         """Convert text hash to actual text"""
         if not hash_value:
             return ""
-        return self.textmap.get(str(hash_value), f"[Missing:{hash_value}]")
+        if isinstance(self.textmap, dict):
+            return self.textmap.get(str(hash_value), f"[Missing:{hash_value}]")
+        return f"[Missing:{hash_value}]"
     
     def get_archon_chapters(self):
         """Get all Archon Quest chapters"""
-        return sorted([ch for ch in self.chapters if ch.get('questType') == 'AQ'], 
-                     key=lambda x: x.get('id', 0))
+        chapters = [ch for ch in self.chapters if isinstance(ch, dict) and ch.get('questType') == 'AQ']
+        return sorted(chapters, key=lambda x: x.get('id', 0))
     
     def get_chapter_main_quests(self, chapter_id):
         """Get main quests for a chapter using series or chapterId field"""
@@ -274,44 +281,140 @@ class ArchonQuestExtractorV2:
         
         return "\n".join(chapter_output) if len(chapter_output) > 7 else None
     
-    def extract_all(self, output_dir='output_v2'):
+    def extract_all(self, output_dir='output_v2', chapters=None, merge_all=True, write_text=True, validation_only=False, sample_count=20, seed=None):
         """Extract all Archon Quest dialogues"""
         output_path = Path(output_dir)
         output_path.mkdir(exist_ok=True)
-        
+
         archon_chapters = self.get_archon_chapters()
+        if chapters:
+            chapter_set = {int(c) for c in chapters}
+            archon_chapters = [ch for ch in archon_chapters if ch.get('id') in chapter_set]
+
         print(f"Found {len(archon_chapters)} Archon Quest chapters")
-        
+
         all_content = []
         chapter_count = 0
-        
+        coverage = {
+            "generated_at": datetime.utcnow().isoformat() + "Z",
+            "output_dir": str(output_path),
+            "summary": {
+                "total_chapters": 0,
+                "total_dialogues": 0,
+                "total_missing_texts": 0
+            },
+            "chapters": []
+        }
+        sample_lines = []
+
+        rng = random.Random(seed) if seed is not None else random
+
         for chapter in archon_chapters:
             chapter_id = chapter.get('id', 0)
             content = self.extract_chapter(chapter)
-            
-            if content:
-                # Save individual chapter file
+
+            if not content:
+                continue
+
+            lines = [line for line in content.split("\n") if line.strip()]
+            dialogue_lines = [line for line in lines if "：" in line]
+            missing_count = sum(1 for line in lines if "[Missing:" in line)
+
+            coverage["chapters"].append({
+                "id": str(chapter_id),
+                "dialogues": len(dialogue_lines),
+                "missing_texts": missing_count
+            })
+            coverage["summary"]["total_chapters"] += 1
+            coverage["summary"]["total_dialogues"] += len(dialogue_lines)
+            coverage["summary"]["total_missing_texts"] += missing_count
+
+            if write_text and not validation_only:
                 chapter_file = output_path / f"Chapter_{chapter_id}.txt"
                 with open(chapter_file, 'w', encoding='utf-8') as f:
                     f.write(content)
-                
+
                 all_content.append(content)
                 chapter_count += 1
-        
-        # Save all-in-one file
-        if all_content:
+
+            if dialogue_lines and sample_count > 0:
+                for idx, line in enumerate(dialogue_lines):
+                    if len(sample_lines) < sample_count:
+                        sample_lines.append({
+                            "chapter_id": str(chapter_id),
+                            "line_index": idx,
+                            "text": line
+                        })
+                    else:
+                        if rng.random() < 0.1:
+                            replace_idx = rng.randrange(sample_count)
+                            sample_lines[replace_idx] = {
+                                "chapter_id": str(chapter_id),
+                                "line_index": idx,
+                                "text": line
+                            }
+
+        coverage_report = output_path / "coverage_report.json"
+        with open(coverage_report, 'w', encoding='utf-8') as f:
+            json.dump(coverage, f, ensure_ascii=False, indent=2)
+
+        validation_samples = output_path / "validation_samples.jsonl"
+        with open(validation_samples, 'w', encoding='utf-8') as f:
+            for item in sample_lines:
+                f.write(json.dumps(item, ensure_ascii=False) + "\n")
+
+        if write_text and merge_all and all_content and not validation_only:
             all_in_one = output_path / "ArchonQuest_CHS_AllInOne.txt"
             with open(all_in_one, 'w', encoding='utf-8') as f:
                 f.write("\n\n".join(all_content))
-            
+
             print(f"\n{'='*60}")
             print(f"Extraction complete!")
             print(f"Total chapters: {chapter_count}")
             print(f"Output directory: {output_path}")
             print(f"All-in-one file: {all_in_one}")
+            print(f"Coverage report: {coverage_report}")
+            print(f"Validation samples: {validation_samples}")
+            print(f"{'='*60}")
+        else:
+            print(f"\n{'='*60}")
+            print(f"Validation complete!")
+            print(f"Total chapters: {coverage['summary']['total_chapters']}")
+            print(f"Output directory: {output_path}")
+            print(f"Coverage report: {coverage_report}")
+            print(f"Validation samples: {validation_samples}")
             print(f"{'='*60}")
 
 
+def parse_args():
+    parser = argparse.ArgumentParser(description="Genshin Impact Archon Quest Dialogue Extractor")
+    parser.add_argument("--data-dir", default="GenshinScripts/data", help="Path to extracted Excel/TextMap data")
+    parser.add_argument("--repo-dir", default="AnimeGameData", help="Path to AnimeGameData repo (CodexQuest)")
+    parser.add_argument("--output-dir", default="output", help="Output directory")
+    parser.add_argument("--chapters", default="", help="Comma-separated chapter IDs to extract")
+    parser.add_argument("--merge-all", action="store_true", help="Write merged all-in-one text output")
+    parser.add_argument("--no-text-output", action="store_true", help="Skip writing full text outputs")
+    parser.add_argument("--validation-only", action="store_true", help="Only generate coverage/sample validation outputs")
+    parser.add_argument("--lang", default="CHS", help="TextMap language code, e.g. CHS/CHT/EN")
+    parser.add_argument("--sample-count", type=int, default=20, help="Number of validation samples to retain")
+    parser.add_argument("--seed", type=int, default=None, help="Random seed for validation sampling")
+    return parser.parse_args()
+
+
 if __name__ == '__main__':
-    extractor = ArchonQuestExtractorV2()
-    extractor.extract_all()
+    args = parse_args()
+    chapters = [c.strip() for c in args.chapters.split(",") if c.strip()] if args.chapters else None
+    extractor = ArchonQuestExtractorV2(
+        data_dir=args.data_dir,
+        repo_dir=args.repo_dir,
+        textmap_lang=args.lang
+    )
+    extractor.extract_all(
+        output_dir=args.output_dir,
+        chapters=chapters,
+        merge_all=args.merge_all,
+        write_text=not args.no_text_output,
+        validation_only=args.validation_only,
+        sample_count=args.sample_count,
+        seed=args.seed
+    )

@@ -1,0 +1,241 @@
+{
+  "generated_at": "2026-01-18T13:10:10.712320Z",
+  "output_dir": "output",
+  "summary": {
+    "total_chapters": 46,
+    "total_dialogues": 51195,
+    "total_missing_texts": 486
+  },
+  "chapters": [
+    {
+      "id": "1001",
+      "dialogues": 322,
+      "missing_texts": 1
+    },
+    {
+      "id": "1002",
+      "dialogues": 610,
+      "missing_texts": 0
+    },
+    {
+      "id": "1003",
+      "dialogues": 432,
+      "missing_texts": 0
+    },
+    {
+      "id": "1004",
+      "dialogues": 1113,
+      "missing_texts": 0
+    },
+    {
+      "id": "1101",
+      "dialogues": 2129,
+      "missing_texts": 0
+    },
+    {
+      "id": "1102",
+      "dialogues": 803,
+      "missing_texts": 0
+    },
+    {
+      "id": "1103",
+      "dialogues": 874,
+      "missing_texts": 0
+    },
+    {
+      "id": "1104",
+      "dialogues": 583,
+      "missing_texts": 0
+    },
+    {
+      "id": "1201",
+      "dialogues": 2342,
+      "missing_texts": 1
+    },
+    {
+      "id": "1202",
+      "dialogues": 1326,
+      "missing_texts": 0
+    },
+    {
+      "id": "1203",
+      "dialogues": 275,
+      "missing_texts": 0
+    },
+    {
+      "id": "1204",
+      "dialogues": 1014,
+      "missing_texts": 0
+    },
+    {
+      "id": "1205",
+      "dialogues": 643,
+      "missing_texts": 0
+    },
+    {
+      "id": "1206",
+      "dialogues": 405,
+      "missing_texts": 0
+    },
+    {
+      "id": "1207",
+      "dialogues": 1393,
+      "missing_texts": 1
+    },
+    {
+      "id": "1301",
+      "dialogues": 1542,
+      "missing_texts": 0
+    },
+    {
+      "id": "1302",
+      "dialogues": 1407,
+      "missing_texts": 0
+    },
+    {
+      "id": "1303",
+      "dialogues": 887,
+      "missing_texts": 0
+    },
+    {
+      "id": "1304",
+      "dialogues": 1096,
+      "missing_texts": 0
+    },
+    {
+      "id": "1305",
+      "dialogues": 2242,
+      "missing_texts": 0
+    },
+    {
+      "id": "1306",
+      "dialogues": 83,
+      "missing_texts": 0
+    },
+    {
+      "id": "1307",
+      "dialogues": 1203,
+      "missing_texts": 0
+    },
+    {
+      "id": "1308",
+      "dialogues": 744,
+      "missing_texts": 0
+    },
+    {
+      "id": "1401",
+      "dialogues": 1697,
+      "missing_texts": 0
+    },
+    {
+      "id": "1402",
+      "dialogues": 1325,
+      "missing_texts": 0
+    },
+    {
+      "id": "1403",
+      "dialogues": 1069,
+      "missing_texts": 0
+    },
+    {
+      "id": "1404",
+      "dialogues": 1268,
+      "missing_texts": 1
+    },
+    {
+      "id": "1405",
+      "dialogues": 2070,
+      "missing_texts": 0
+    },
+    {
+      "id": "1406",
+      "dialogues": 605,
+      "missing_texts": 0
+    },
+    {
+      "id": "1500",
+      "dialogues": 1117,
+      "missing_texts": 0
+    },
+    {
+      "id": "1501",
+      "dialogues": 1218,
+      "missing_texts": 0
+    },
+    {
+      "id": "1502",
+      "dialogues": 1256,
+      "missing_texts": 0
+    },
+    {
+      "id": "1503",
+      "dialogues": 1230,
+      "missing_texts": 0
+    },
+    {
+      "id": "1504",
+      "dialogues": 1696,
+      "missing_texts": 0
+    },
+    {
+      "id": "1505",
+      "dialogues": 457,
+      "missing_texts": 0
+    },
+    {
+      "id": "1506",
+      "dialogues": 912,
+      "missing_texts": 0
+    },
+    {
+      "id": "1600",
+      "dialogues": 2101,
+      "missing_texts": 0
+    },
+    {
+      "id": "1601",
+      "dialogues": 1539,
+      "missing_texts": 0
+    },
+    {
+      "id": "1602",
+      "dialogues": 1095,
+      "missing_texts": 0
+    },
+    {
+      "id": "1603",
+      "dialogues": 870,
+      "missing_texts": 0
+    },
+    {
+      "id": "1604",
+      "dialogues": 1609,
+      "missing_texts": 0
+    },
+    {
+      "id": "1605",
+      "dialogues": 1377,
+      "missing_texts": 0
+    },
+    {
+      "id": "1606",
+      "dialogues": 1171,
+      "missing_texts": 0
+    },
+    {
+      "id": "1607",
+      "dialogues": 139,
+      "missing_texts": 0
+    },
+    {
+      "id": "1608",
+      "dialogues": 1429,
+      "missing_texts": 0
+    },
+    {
+      "id": "2015",
+      "dialogues": 477,
+      "missing_texts": 482
+    }
+  ]
+}

@@ -20,13 +20,18 @@ build/
 Thumbs.db
 
 # Project specific - Data sources (too large for git)
-AnimeGameData/
 GenshinScripts/
 GenshinDialog/
 
 # Archive
 archive/
 
-# Keep output but ignore temp files
+# Output artifacts (keep summaries, ignore raw texts)
+output/Chapter_*.txt
+output/ArchonQuest_*.txt
+output/*.txt
+!output/validation_samples.jsonl
+!output/coverage_report.json
 output/*.tmp
+output_v2/
 *.log

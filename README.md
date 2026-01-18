@@ -19,7 +19,7 @@
 | **总对话数** | 51,195 条 |
 | **总字符数** | 1,421,499 字（约 142 万字） |
 | **平均每章** | 1,112 条对话 |
-| **数据完整度** | 100% |
+| **数据完整度** | 基于当前数据源版本的统计结果 |
 
 ### 各地区剧情字数分布
 
@@ -66,23 +66,51 @@
 git clone <your-repo-url>
 cd Genshin
 
-# 2. 运行提取器
-python3 archon_quest_extractor.py
+# 2. 初始化数据源（固定版本）
+# 此仓库使用 AnimeGameData 作为子模块，需先初始化
+# 当前验证版本见下方「数据源与复现」
+git submodule update --init --recursive
 
-# 3. 查看输出
+# 3. 运行提取器
+python3 archon_quest_extractor.py \
+  --data-dir GenshinScripts/data \
+  --repo-dir AnimeGameData \
+  --output-dir output \
+  --lang CHS \
+  --merge-all
+
+# 4. 查看输出
 ls output/
+```
+
+### 常用参数
+
+```bash
+# 仅提取指定章节
+python3 archon_quest_extractor.py --chapters 1401,1402,1600
+
+# 切换语言（TextMap<LANG>.json 必须存在）
+python3 archon_quest_extractor.py --lang CHS
+
+# 仅生成统计与校验，不输出全文
+python3 archon_quest_extractor.py --no-text-output --validation-only
+
+# 生成合并大文本
+python3 archon_quest_extractor.py --merge-all
 ```
 
 ### 输出文件
 
 ```
 output/
-├── ArchonQuest_CHS_AllInOne.txt    # 完整对白合集 (4.05 MB)
-├── Chapter_1001.txt                # 序章第一幕：捕风的异乡人
-├── Chapter_1002.txt                # 序章第二幕：为了没有眼泪的明天
+├── ArchonQuest_CHS_AllInOne.txt    # 完整对白合集 (可选)
+├── Chapter_1001.txt                # 序章第一幕：捕风的异乡人 (可选)
+├── Chapter_1002.txt                # 序章第二幕：为了没有眼泪的明天 (可选)
 ├── ...
-├── Chapter_1608.txt                # 空月之歌：终末人间
-└── statistics.json                 # 统计数据
+├── Chapter_1608.txt                # 空月之歌：终末人间 (可选)
+├── statistics.json                 # 统计数据
+├── coverage_report.json            # 覆盖率校验
+└── validation_samples.jsonl        # 抽样验真样本
 ```
 
 ---
@@ -191,6 +219,15 @@ output/
 
 ---
 
+## 🧭 数据源与复现
+
+为降低上游数据变动带来的复现失败风险，本项目将 AnimeGameData 固定为子模块版本：
+
+- **AnimeGameData commit**: `a7624301c8b009c54bdf7bf8d4cfb817aad6accf`
+- **验证版本号**: 5.5.0
+
+> 若上游字段混淆策略更新，请先更新子模块并重新生成 `coverage_report.json` 与抽样验真样本。
+
 ## 🛠️ 技术实现
 
 ### 双源提取架构
@@ -275,9 +312,9 @@ Genshin/
 │   │   └── ...
 │   └── TextMap/TextMapCHS.json
 │
-├── output/                        # 输出目录
-│   ├── ArchonQuest_CHS_AllInOne.txt  # 完整合集 (4.05 MB)
-│   ├── Chapter_*.txt              # 46 个章节文件
+├── output/                        # 输出目录（默认不提交全文）
+│   ├── coverage_report.json       # 覆盖率统计
+│   ├── validation_samples.jsonl   # 抽样验真样本
 │   └── statistics.json            # 统计数据
 │
 └── docs/                          # 文档目录
@@ -315,14 +352,14 @@ Chapter ID: 1401
 
 | 项目 | 数据源 | 枫丹支持 | 坎瑞亚支持 | 说话人识别 | 完整度 |
 |------|--------|---------|-----------|----------|--------|
-| **本项目** | CodexQuest + DialogTree | ✅ 100% | ✅ 100% | ✅ 准确 | **100%** |
+| **本项目** | CodexQuest + DialogTree | ✅ 完整度随数据源版本变化 | ✅ 完整度随数据源版本变化 | ✅ 依赖 TextMap 与字段映射 | 见校验报告 |
 | GenshinDialog | CodexQuest | ✅ 部分 | ❌ 无 | ⚠️ 启发式 | ~80% |
 | 其他提取器 | DialogTree 仅 | ❌ ~10% | ❌ 无 | ✅ 准确 | ~50% |
 
 ### 本项目优势
 
-- ✅ **完整性**: 唯一完整支持枫丹和坎瑞亚章节的提取器
-- ✅ **准确性**: 直接从游戏数据提取，说话人 100% 准确
+- ✅ **覆盖面**: 支持 CodexQuest + DialogTree 双数据源
+- ✅ **可验证**: 提供覆盖率与抽样验真机制（见校验章节）
 - ✅ **可读性**: 清晰的格式，便于阅读和分析
 - ✅ **兼容性**: 自动适配新旧数据格式
 - ✅ **无依赖**: 纯 Python 标准库实现
@@ -332,6 +369,8 @@ Chapter ID: 1401
 ## 📊 统计数据文件
 
 `output/statistics.json` 包含完整的统计信息：
+
+`output/coverage_report.json` 记录覆盖率与缺失统计，`output/validation_samples.jsonl` 保存抽样验真样本：
 
 ```json
 {
@@ -359,6 +398,15 @@ Chapter ID: 1401
 
 ---
 
+## ✅ 校验与回归
+
+本项目提供两类低成本校验，降低统计误差与字段变更带来的风险：
+
+1. **覆盖率校验**: 统计每章对白条数、缺失 TextMap 数量、章节数量等，输出到 `output/coverage_report.json`
+2. **抽样验真**: 从输出中随机抽取若干段对白，记录对应章节与偏移位置，保存为回归样本 `output/validation_samples.jsonl`
+
+> 建议在数据源更新时保留历史 `coverage_report.json` 以便对比漂移。
+
 ## ⚠️ 已知限制
 
 1. **占位符**: 部分对话包含 `{NICKNAME}` 占位符（游戏内替换为玩家名称）
@@ -383,6 +431,8 @@ Chapter ID: 1401
 - 本项目仅供个人学习研究使用
 - 游戏文本内容版权归 **米哈游** 所有
 - 请勿用于商业用途或公开分发
+- 主分支不提交完整剧情文本，仅保留统计摘要与格式示例
+- 若需要公开发布完整文本，请使用 Release 并明确限制说明
 - 使用本项目提取的数据需遵守米哈游相关条款
 
 ---
@@ -402,6 +452,6 @@ Chapter ID: 1401
 ---
 
 **提取日期**: 2026 年 1 月 17 日  
-**游戏版本**: 基于最新 AnimeGameData 数据  
+**游戏版本**: 基于固定 AnimeGameData 版本（见下方数据源说明）  
 **语言**: 简体中文 (CHS)  
-**提取完成度**: 100% ✨
+**提取完成度**: 以校验报告为准
